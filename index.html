@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>诗笺 · 每日一诗</title>
+<meta name="description" content="每日一首，专挑不太有名的好诗好词">
+<style>
+  :root{
+    --paper:#f3eee2;
+    --paper-2:#fbf8f0;
+    --ink:#221f19;
+    --ink-2:#544c3f;
+    --ink-3:#8b8172;
+    --seal:#a3342a;
+    --line:rgba(34,31,25,.13);
+    --max:760px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1100px 620px at 12% -8%, #fffdf6 0%, rgba(255,253,246,0) 62%),
+      radial-gradient(900px 520px at 92% 4%, #f6efe0 0%, rgba(246,239,224,0) 58%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Songti SC","STSong","SimSun","Noto Serif CJK SC","Source Han Serif SC",serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.9;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 26px 90px}
+
+  /* 报头 */
+  .masthead{padding:66px 0 30px;text-align:center;position:relative}
+  .seal{
+    display:inline-block;width:52px;height:52px;line-height:52px;
+    border:1.5px solid var(--seal);color:var(--seal);
+    font-size:26px;letter-spacing:0;border-radius:5px;
+    background:rgba(163,52,42,.045);
+    margin-bottom:20px;
+  }
+  h1{
+    margin:0;font-size:34px;font-weight:500;letter-spacing:.42em;
+    text-indent:.42em;line-height:1.4;
+  }
+  .sub{
+    margin:14px 0 0;color:var(--ink-2);font-size:13.5px;
+    letter-spacing:.16em;
+  }
+  .rule{
+    margin:34px auto 0;height:1px;max-width:calc(var(--max) - 52px);
+    background:linear-gradient(90deg,transparent,var(--line) 18%,var(--line) 82%,transparent);
+    position:relative;
+  }
+  .rule::after{
+    content:"";position:absolute;left:50%;top:-2.5px;width:5px;height:5px;
+    margin-left:-2.5px;background:var(--seal);border-radius:50%;opacity:.55;
+  }
+
+  /* 篇目导航 */
+  .nav{
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+    padding:26px 0 8px;
+  }
+  .nav a{
+    display:inline-flex;align-items:baseline;gap:7px;
+    padding:5px 13px;border:1px solid var(--line);border-radius:999px;
+    text-decoration:none;font-size:12.5px;color:var(--ink-2);
+    background:rgba(255,255,255,.34);
+    transition:.22s;
+  }
+  .nav a b{font-weight:500;color:var(--ink)}
+  .nav a span{color:var(--ink-3);font-size:11.5px}
+  .nav a:hover{border-color:rgba(163,52,42,.42);background:rgba(255,255,255,.7);transform:translateY(-1px)}
+
+  /* 单篇 */
+  .poem{
+    margin:44px 0 0;padding:44px 0 8px;
+    border-top:1px solid var(--line);
+  }
+  .poem:first-of-type{border-top:none}
+  .poem-head{text-align:center}
+  .poem-meta{
+    font-size:12px;color:var(--ink-3);letter-spacing:.1em;
+    display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+  }
+  .poem-meta .dot{opacity:.5}
+  .badge{
+    color:var(--seal);border:1px solid rgba(163,52,42,.4);
+    border-radius:3px;padding:0 6px;font-size:11px;letter-spacing:.14em;
+    background:rgba(163,52,42,.05);
+  }
+  .poem-title{
+    margin:16px 0 6px;font-size:27px;font-weight:500;letter-spacing:.18em;
+    text-indent:.18em;
+  }
+  .poem-author{margin:0;color:var(--ink-2);font-size:13px;letter-spacing:.14em}
+
+  .verse{
+    margin:34px 0 30px;padding:32px 0;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    text-align:center;
+  }
+  .verse .line{
+    margin:0;font-size:22px;line-height:2.15;letter-spacing:.13em;
+    text-indent:.13em;color:#191712;
+  }
+
+  .why{
+    margin:0 0 30px;padding:14px 18px;
+    background:linear-gradient(180deg,rgba(255,255,255,.62),rgba(255,255,255,.3));
+    border-left:2px solid rgba(163,52,42,.45);
+    border-radius:0 4px 4px 0;
+    font-size:13.5px;color:var(--ink-2);line-height:1.85;
+  }
+  .why-tag{
+    display:inline-block;color:var(--seal);font-size:11.5px;letter-spacing:.14em;
+    margin-right:10px;border-bottom:1px solid rgba(163,52,42,.3);padding-bottom:1px;
+  }
+
+  .gloss{display:grid;gap:26px}
+  .gloss h3{
+    margin:0 0 10px;font-size:12px;font-weight:500;letter-spacing:.3em;
+    color:var(--seal);position:relative;padding-left:16px;
+  }
+  .gloss h3::before{
+    content:"";position:absolute;left:0;top:.62em;width:8px;height:1px;background:var(--seal);opacity:.65;
+  }
+  .gloss p,.gloss li{font-size:14.5px;color:var(--ink-2);line-height:2.05;margin:0}
+  .gloss .prose p+p{margin-top:14px;text-indent:2em}
+  .notes{margin:0;padding-left:0;list-style:none}
+  .notes li{position:relative;padding-left:14px}
+  .notes li::before{
+    content:"";position:absolute;left:2px;top:.95em;width:3px;height:3px;
+    border-radius:50%;background:var(--ink-3);opacity:.6;
+  }
+
+  /* 页脚 */
+  footer{
+    margin-top:80px;padding-top:26px;border-top:1px solid var(--line);
+    text-align:center;color:var(--ink-3);font-size:12px;letter-spacing:.12em;line-height:2.2;
+  }
+  footer .big{color:var(--ink-2);font-size:13px;letter-spacing:.3em}
+
+  @media (max-width:560px){
+    .wrap{padding:0 18px 70px}
+    .masthead{padding:46px 0 22px}
+    h1{font-size:26px;letter-spacing:.32em;text-indent:.32em}
+    .poem-title{font-size:23px}
+    .verse .line{font-size:19px;line-height:2.1}
+    .poem{padding-top:36px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="seal">诗</div>
+    <h1>诗笺</h1>
+    <p class="sub">每日一首，专挑不太有名的好诗好词</p>
+    <div class="rule"></div>
+  </header>
+
+  <nav class="nav"><a href="#d-2026-10-31"><b>襄邑道中</b><span>陈与义</span></a></nav>
+
+  <main>
+    <article class="poem is-today" id="d-2026-10-31">
+      <header class="poem-head">
+        <div class="poem-meta">
+          <time datetime="2026-10-31">二〇二六年十月三十一</time>
+          <span class="dot">·</span>
+          <span>七言绝句</span>
+          <span class="badge">今日</span>
+        </div>
+        <h2 class="poem-title">襄邑道中</h2>
+        <p class="poem-author">宋 · 陈与义</p>
+      </header>
+
+      <div class="verse"><p class="line">飞花两岸照船红，</p><p class="line">百里榆堤半日风。</p><p class="line">卧看满天云不动，</p><p class="line">不知云与我俱东。</p></div>
+
+      <p class="why"><span class="why-tag">为何是这一首</span>不在必背篇目里，却是宋人七绝中最清亮的一首：写顺风、写错觉、写少年人的得意，一样都不缺。</p>
+
+      <div class="gloss">
+        <section>
+          <h3>注</h3>
+          <ul class="notes"><li>襄邑：今河南睢县，宋时属开封府，惠济河从境内流过。</li><li>榆堤：长满榆树的河堤。</li><li>俱东：一同向东。</li></ul>
+        </section>
+        <section>
+          <h3>白话</h3>
+          <p>两岸落花纷飞，把船都映成了红色；沿着长满榆树的河堤，半日顺风便行出百里。躺卧船中仰望，满天的云似乎凝然不动——却不知道，云正和我一同向东。</p>
+        </section>
+        <section>
+          <h3>赏</h3>
+          <div class="prose"><p>前两句写得极艳，却不着一「艳」字。花本是红的，船本不红，诗人偏说「照船红」——一个「照」字，把满江春色推到了船身上，红得有来处。第二句只说「榆堤」，绿意已暗含其中，红绿相衬而不必点破颜色。「百里」与「半日」对举，路长而时短，顺风的轻快全在数字里。</p><p>后两句忽然转静。人卧船中，只见云不动；其实是云与人同速东行，相对而成静止。诗人不讲道理，只写一个「不知」，把物理写成了天真。宋人七绝多爱议论，这一首却把理藏在错觉背后，等你合上书才恍然。</p><p>写这首诗时他二十七岁，开德府教授任满，入京待选，正是志得意满的时候。于是满篇都是顺风、飞花、轻舟——一个人的心情，原来可以借风向和云速来写。</p></div>
+        </section>
+      </div>
+    </article></main>
+
+  <footer>
+    <div class="big">每 日 一 首 · 共 1 首</div>
+    诗不必有名，只要有一句让人停一停。<br>
+    2026 · 由 <a href="https://github.com/kinghihido/daily-poem">daily-poem</a> 自动生成
+  </footer>
+</div>
+</body>
+</html>
