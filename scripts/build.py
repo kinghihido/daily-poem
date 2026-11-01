@@ -26,16 +26,18 @@ def cn_date(iso: str) -> str:
         m_txt = "十"
     d_i = int(d)
     if d_i <= 10:
-        d_txt = "初" + CN_NUM[d_i]
+        d_txt = CN_NUM[d_i]
     elif d_i < 20:
         d_txt = "十" + CN_NUM[d_i - 10]
     elif d_i == 20:
         d_txt = "二十"
     elif d_i < 30:
         d_txt = "二十" + CN_NUM[d_i - 20]
+    elif d_i == 30:
+        d_txt = "三十"
     else:
-        d_txt = "三十" + (CN_NUM[d_i - 30] if d_i > 30 else "")
-    return f"{y_txt}年{m_txt}月{d_txt}"
+        d_txt = "三十" + CN_NUM[d_i - 30]
+    return f"{y_txt}年{m_txt}月{d_txt}日"
 
 
 def esc(s: str) -> str:
