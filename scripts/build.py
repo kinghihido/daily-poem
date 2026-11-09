@@ -25,7 +25,9 @@ def cn_date(iso: str) -> str:
     if int(m) == 10:
         m_txt = "十"
     d_i = int(d)
-    if d_i <= 10:
+    if d_i == 10:
+        d_txt = "十"
+    elif d_i < 10:
         d_txt = CN_NUM[d_i]
     elif d_i < 20:
         d_txt = "十" + CN_NUM[d_i - 10]
